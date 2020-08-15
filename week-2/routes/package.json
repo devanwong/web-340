@@ -1,0 +1,8 @@
+{
+  "name": "routes",
+  "author": "Devan Wong",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

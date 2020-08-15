@@ -1,3 +1,15 @@
+const header = require('../../wong-header.js');
+console.log(header.display('Devan', 'Wong', 'Exercise 2.2'));
+
+/*
+============================================
+; Title:  Exercise 2.2 – Hello World with Express
+; Author: Devan Wong
+; Date:   15 August 2020
+; Description: Creates a new server and listens on port 8080.
+;===========================================
+*/
+
 // required for express
 var express = require("express");
 // express function to start application 
