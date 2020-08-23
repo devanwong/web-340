@@ -1,14 +1,13 @@
 const header = require('../../wong-header.js');
-console.log(header.display('Devan', 'Wong', 'Exercise 3.2'));
+console.log(header.display('Devan', 'Wong', 'Exercise 3.3'));
 /*
 ============================================
-; Title:  Exercise 3.2 
+; Title:  Exercise 3.3 
 ; Author: Devan Wong
-; Date:   23 August 2020
+; Date: 23 August 2020
 ; Description: Logging 
 ;===========================================
 */
-
 var express = require("express");
 var http = require("http");
 var path = require("path");
@@ -21,14 +20,20 @@ app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 //using morgan logger here.
 app.use(logger("short"));
-app.get("/", function (req,res){
-    res.render("index", {
-        message: "This is Morgan Logger"
-    });
+// routes
+// app.get("/", function (req,res){
+//     res.render("index", {
+//         message: "This is Morgan Logger"
+//     });
+// });
+app.get("/:productId", function(request,response){
+    var productId = parseInt(request.params.productId);
+    response.render("index", {
+        productId: productId
+    })
 });
+
 //run the server. 
-http.createServer(app).listen(8080, function(){
-    console.log("This is localhost: 8080!");
+http.createServer(app).listen(3000, function(){
+    console.log("This is localhost: 3000!");
 });
-
-
