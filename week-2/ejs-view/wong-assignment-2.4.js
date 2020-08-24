@@ -29,13 +29,13 @@ app.get("/", function(req, res){
         address: "1234 California Street"
     });
 });
-
+//routes to about page.
 app.get("/about", function(req,res){
     res.render("about",{
         message: "Welcome to my about me page"
     });
 });
-
+//routes to contact page.
 app.get("/contact", function(req,res){
     res.render("contact",{
         message: "Welcome to my contact page"

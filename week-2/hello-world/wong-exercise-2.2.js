@@ -14,9 +14,8 @@ console.log(header.display('Devan', 'Wong', 'Exercise 2.2'));
 var express = require("express");
 // express function to start application 
 var http = require("http");
-
 var app = express();
-
+//runs  "hello world in the DOM!"
 app.use(function(req,res){
     console.log("In comes a request to:" + req.url);
     res.end("Hello world");

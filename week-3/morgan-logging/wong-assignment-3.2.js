@@ -9,11 +9,16 @@ console.log(header.display('Devan', 'Wong', 'Exercise 3.2'));
 ;===========================================
 */
 
+//require for express
 var express = require("express");
+//http module for express 
 var http = require("http");
 var path = require("path");
+//required for logging middleware
 var logger = require("morgan");
+//run express
 var app = express();
+
 
 //tells express to look in the views directory 
 app.set("views", path.resolve(__dirname, "views"));
@@ -21,6 +26,7 @@ app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 //using morgan logger here.
 app.use(logger("short"));
+//routes homepage and logs the loggers
 app.get("/", function (req,res){
     res.render("index", {
         message: "This is Morgan Logger"
