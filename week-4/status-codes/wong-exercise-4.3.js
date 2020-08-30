@@ -5,13 +5,15 @@ console.log(header.display('Devan', 'Wong', 'Exercise 4.3'));
 ; Title:  Exercise 4.3
 ; Author: Devan Wong
 ; Date:   29 August 2020
-; Description: HTTP Status Codes
+; Description: HTTP Status Codes |
+              Demonstrates how to return JSON from
+;              a Node.js server.
 ;===========================================
 */
 
 //require for express
 var express = require("express");
-//http module for express 
+//http module for express
 var http = require("http");
 //runs express
 var app = express();
@@ -23,7 +25,7 @@ app.get("/not-found", function(req, res){
         error: "Resource not found."
     })
 });
-//get req for a 200 message. 
+//get req for a 200 message.
 app.get("/ok", function(req, res){
     res.status(200);
     res.json({
@@ -51,7 +53,7 @@ app.get("/service-unavailable", function(req, res){
         error: "Page Service Unavailable."
     })
 });
-//runs server 
+//runs server
 http.createServer(app).listen(8080, function(){
     console.log("Application started on port 8080");
 });
