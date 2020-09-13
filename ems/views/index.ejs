@@ -5,9 +5,16 @@
   <%- include ('navbar') %>
   <div role="main" class="container">
     <br /><br />
-    <h2><%= title %></h2>
-    <h2><%= message %></h2>
+    <div class="jumbotron">
+      <h1><%= title %></h1>
+      <p class="lead"><%= message %></p>
+      <hr class="my-4">
+      <h2>Project Description:</h2>
+      <p class="lead"><%= description %></p>
+    </div>
+
   </div>
   <%- include ('footer') %>
+  <%- include ('scripts') %>
 </body>
 </html>
