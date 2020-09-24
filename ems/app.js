@@ -13,6 +13,7 @@ var express = require("express");
 var http = require("http");
 var path = require("path");
 var logger = require("morgan");
+var helmet = require("helmet");
 var app = express();
 var mongoose = require('mongoose');
 var Employee = require("./models/employee.js");
@@ -38,9 +39,11 @@ app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 //morgan
 app.use(logger("short"));
+//helmet
+app.use(helmet.xssFilter());
 //including css
 app.use(express.static(__dirname + '/public'));
-//routes
+//http
 app.get("/", function(req, res) {
   res.render("index", {
     title: "Welcome to Fnames Employment Page",
