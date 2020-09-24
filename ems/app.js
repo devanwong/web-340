@@ -13,18 +13,28 @@ var express = require("express");
 var http = require("http");
 var path = require("path");
 var logger = require("morgan");
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+var crsf = require("csurf");
 var helmet = require("helmet");
-var app = express();
 var mongoose = require('mongoose');
 var Employee = require("./models/employee.js");
 
 //mlab connection
 var mongoDB = "mongodb+srv://devthedev:november8@buwebdev-cluster-1.w20ui.mongodb.net/test";
+
+//setup csrf protection
+var csrfProtection = crsf({cookie: true});
+
+//run express
+var app = express();
+
 //creating the connections.
 mongoose.connect(mongoDB,{
   useNewUrlParser: true,
   useUnifiedTopology: true
-  //useMongoClient: true deprecated.
+
+//useMongoClient: true deprecated.
 }).then(() => {
   console.log("Connection to the database instance was successful");
 }).catch(err => {
@@ -34,16 +44,27 @@ mongoose.connect(mongoDB,{
 //adding promise
 mongoose.Promise = global.Promise;
 
-//ejs compiler
+//use statements
+app.use(logger("short")); //morgan
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(cookieParser());
+app.use(csrfProtection);
+app.use(helmet.xssFilter()); //helmet
+app.use(express.static(__dirname + '/public')); //including css
+app.use(function(req, res, next){
+  var token = req.csrfToken();
+  res.cookie('XSRF-TOKEN', token);
+  res.locals.csrfToken = token;
+  next();
+})
+
+//set statements
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
-//morgan
-app.use(logger("short"));
-//helmet
-app.use(helmet.xssFilter());
-//including css
-app.use(express.static(__dirname + '/public'));
-//http
+
+//routing
 app.get("/", function(req, res) {
   res.render("index", {
     title: "Welcome to Fnames Employment Page",
@@ -51,6 +72,16 @@ app.get("/", function(req, res) {
     description: "This project is to showcase Node, Express and Mongo."
   });
 });
+app.get("/new", function(req, res){
+  res.render('new',{
+    title:'FMS, New'
+  });
+});
+app.post("/process", function(req,res){
+  console.log(req.body.txtName);
+  res.redirect("/");
+});
+
 //run server
 http.createServer(app).listen(8080,function(){
   console.log("Application started on port 8080!");
