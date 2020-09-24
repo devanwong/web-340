@@ -4,8 +4,8 @@ console.log(header.display('Devan', 'Wong', 'EMS'));
 ============================================
 ; Title: EMS
 ; Author: Devan Wong
-; Date:   17 Sept 2020
-; Description: week 5, 6, 7
+; Date:   24 Sept 2020
+; Description: week 5, 6, 7, 8
 ;===========================================
 */
 //require express, ejs, routes, mongo and logger
@@ -77,9 +77,36 @@ app.get("/new", function(req, res){
     title:'FMS, New'
   });
 });
+app.get("/list", function(req,res){
+  Employee.find({}, function(error, employees){
+    if (error) throw error;
+    res.render("list",{
+      title: "-- Employee List --",
+      employees: employees
+    });
+    console.log(employees);
+  });
+});
+
 app.post("/process", function(req,res){
   console.log(req.body.txtName);
-  res.redirect("/");
+  if(!req.body.txtName){
+    res.status(400).send("Entries must have a name");
+    return;
+  }
+  //get the req. form data
+  var employeeName = req.body.txtName;
+  console.log(employeeName);
+  //create employee model
+  var employee = new Employee({
+    name: employeeName
+  });
+  //save
+  employee.save(function(error){
+    if (error) throw error;
+    console.log(employeeName + " saved successfully!!")
+  });
+  res.redirect("/list");
 });
 
 //run server

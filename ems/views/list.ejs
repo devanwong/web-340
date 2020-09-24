@@ -1,18 +1,34 @@
-<!-- Tabular view of employee records -->
-<h2>Employee Records</h2>
-<table class="table">
-  <tr>
-    <th scope="col">Employee ID</th>
-    <th scope="col">First Name</th>
-    <th scope="col">Last Name</th>
-    <th scope="col">Email</th>
-    <th scope="col">Job</th>
-  </tr>
-  <tr>
-    <td scope="row">DATA ID</td>
-    <td>DATA FIRSTNAME</td>
-    <td>DATA LASTNAME</td>
-    <td>DATA EMAIL</td>
-    <td>DATA JOB</td>
-  </tr>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ('header') %>
+
+<body>
+  <%- include ('navbar') %>
+  <div role="main" class="container" style="width:50%">
+    <br/><br/>
+    <% if (employees.length) { %>
+      <h2><%= title %></h2><br />
+      <a href="/new">Add New</a>
+      <table class="table table‐hover">
+          <thead class="thead‐dark">
+          <tr>
+              <th>Name</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% employees.forEach(function(entry) { %>
+          <tr>
+              <td><%= entry.name %></td>
+          </tr>
+          </tbody>
+          <% }) %>
+      </table>
+      <% } else { %>
+      No entries! <a href="/new">Add one!</a>
+      <% } %>
+
+  </div>
+  <%- include ('scripts') %>
+</body>
+</html>
+

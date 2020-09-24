@@ -12,8 +12,7 @@ const Schema = mongoose.Schema;
 
 //define employee schema
 let employeeSchema = new Schema({
-  firstName: String,
-  lastName: String
+  name: {type: String, required: true}
 });
 //expose employee to files.
 var Employee = mongoose.model('Employee', employeeSchema);
