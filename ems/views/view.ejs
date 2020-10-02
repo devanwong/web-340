@@ -1,7 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ('header') %>
+
+  <body>
+    <%- include ('navbar') %>
+
 <!-- Read-only page with the selected employee’s details -->
-<div class="container">
-  <h1>First Name's records:</h1>
-    <p>Name:</p>
-    <p>Email:</p>
-    <p>Job:</p>
+<div role="main" class="container" style="width:30%">
+  <br><br>
+  <h2>-- EMPLOYEE RECORD --</h2>
+  <div>
+    <div class="form-group">
+      <label for="txtName">Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="txtName"
+        readonly
+        value="<%= employee[0].name %>"
+      />
+    </div>
+  </div>
+  <br/><br/>
+  <a href="/">&larr; OK</a>
 </div>
+<%- include ('scripts') %>
+
+ </body>
+</html>

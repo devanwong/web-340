@@ -19,6 +19,7 @@
           <% employees.forEach(function(entry) { %>
           <tr>
               <td><%= entry.name %></td>
+              <td><a href="/view/<%= entry.name %>">VIEW</a></td>
           </tr>
           </tbody>
           <% }) %>
@@ -26,7 +27,7 @@
       <% } else { %>
       No entries! <a href="/new">Add one!</a>
       <% } %>
-
+      <br>
   </div>
   <%- include ('scripts') %>
 </body>

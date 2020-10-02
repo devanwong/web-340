@@ -67,14 +67,14 @@ app.set("view engine", "ejs");
 //routing
 app.get("/", function(req, res) {
   res.render("index", {
-    title: "Welcome to Fnames Employment Page",
+    title: "Welcome to the Employment Page",
     message: "This is where you insert your employment and see everyone else's",
     description: "This project is to showcase Node, Express and Mongo."
   });
 });
 app.get("/new", function(req, res){
   res.render('new',{
-    title:'FMS, New'
+    title:'Add Employee Name'
   });
 });
 app.get("/list", function(req,res){
@@ -86,6 +86,27 @@ app.get("/list", function(req,res){
     });
     console.log(employees);
   });
+});
+
+app.get("/view/:queryName", function(req, res){
+  var queryName = req.params['queryName'];
+  Employee.find({'name': queryName}, function(error, employees) {
+    if (error) {
+      console.log(error);
+      throw error;
+    } else {
+      console.log(employees);
+
+      if(employees.length > 0) {
+        res.render('view', {
+          title: 'EMS | View',
+          employee: employees
+        })
+      } else {
+        res.redirect('/');
+      }
+    }
+  })
 });
 
 app.post("/process", function(req,res){
